@@ -51,9 +51,7 @@ API related videos from the above channel:-
 
 Just follow the below steps to get its functioning.
 
-
 <h2> Steps:- </h2>
-
 
 1. Fork or download the GitHub repo from the GitHub.
 2. Place the downloaded repo of this website in the htdocs folder of xampp (windows OS) or the custom location of your webserver root folder.
@@ -69,6 +67,4 @@ Just follow the below steps to get its functioning.
 12. You will see that the client side is fetching api data via curl.
 13. In this way, you have successfully execute the API CRUD PHP website.
 
-
 Now, you can execute Create, Read, Update and Delete functionality of the website.
-
