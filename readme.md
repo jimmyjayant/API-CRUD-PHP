@@ -21,8 +21,7 @@ Languages used in the development of website:-
 5. MySQL
 6. SQL
 7. AJAX
-
-8\. CURL
+8. CURL
 
 
 
