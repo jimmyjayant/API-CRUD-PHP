@@ -4,7 +4,7 @@
 
 Hello Everyone, This is an <b><u>API CRUD PHP</u></b> project website. This website demonstrates two features.
 
-The first feature is the creation of api database from the <b><u>API</u></b> folder and the fetching of that api data from the <b>**<u>**CLIENT</u></b> folder with the help of curl functionality.
+The first feature is the creation of api database from the <b><u>API</u></b> folder and the fetching of that api data from the <b><u>CLIENT</u></b> folder with the help of curl functionality.
 
 The second feature is the CRUD functionality of this website. That is, the user can create, read, update and delete api database from the MySQL.
 
@@ -42,7 +42,7 @@ Learn the development of API CRUD PHP and various topics related to it from the 
 
 API related videos from the above channel:-
 
-<a href="https://www.youtube.com/watch?v=IPp9tTs9ctY\&t=179s" target="\_blank">https://www.youtube.com/watch?v=IPp9tTs9ctY\&t=179s</a>
+<a href="https://www.youtube.com/watch?v=IPp9tTs9ctY\&t=179s" target="_blank">https://www.youtube.com/watch?v=IPp9tTs9ctY\&t=179s</a>
 
 <br>
 
