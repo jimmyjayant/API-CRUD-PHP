@@ -36,9 +36,7 @@ Tools used:-
 
 Learn the development of API CRUD PHP and various topics related to it from the following YouTube Channel:-
 
-<a href="https://www.youtube.com/@ProgrammingwithVishal" target="\_blank"><b><u>Programming with Vishal</u></b></a>
-
-
+<a href="https://www.youtube.com/@ProgrammingwithVishal" target="_blank"><b><u>Programming with Vishal</u></b></a>
 
 API related videos from the above channel:-
 
@@ -46,23 +44,15 @@ API related videos from the above channel:-
 
 <br>
 
-<a href="https://www.youtube.com/watch?v=fUkNBR66B2I" target="\_blank">https://www.youtube.com/watch?v=fUkNBR66B2I</a>
+<a href="https://www.youtube.com/watch?v=fUkNBR66B2I" target="_blank">https://www.youtube.com/watch?v=fUkNBR66B2I</a>
 
 <br>
 
-<a href="https://www.youtube.com/watch?v=Iu5y0QEEED4" target="\_blank">https://www.youtube.com/watch?v=Iu5y0QEEED4</a>
-
-
-
-
+<a href="https://www.youtube.com/watch?v=Iu5y0QEEED4" target="_blank">https://www.youtube.com/watch?v=Iu5y0QEEED4</a>
 
 Just follow the below steps to get its functioning.
 
-
-
 <h2> Steps:- </h2>
-
-
 
 1. Fork or download the GitHub repo from the GitHub.
 2. Place the downloaded repo of this website in the htdocs folder of xampp (windows OS) or the custom location of your webserver root folder.
@@ -78,7 +68,4 @@ Just follow the below steps to get its functioning.
 12. You will see that the client side is fetching api data via curl.
 13. In this way, you have successfully execute the API CRUD PHP website.
 
-
-
 Now, you can execute Create, Read, Update and Delete functionality of the website.
-
