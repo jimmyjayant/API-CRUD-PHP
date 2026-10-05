@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>API CRUD PHP</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <div class="header">
@@ -13,8 +13,8 @@
             </div>
             <div class="create">
                 <button type="button" onclick="showinsertdiv()">
-                    <img src="add icon.png">
-                    Create New User
+                    <img src="images/add.png" title="Create New User" alt="Create New User">
+                    <span>Create New User</span>
                 </button>
             </div>
         </div>
@@ -27,7 +27,7 @@
             <div id="insertapidata">
                 <h2>Insert API Data</h2>
                 
-                <form action="create.php" method="post">
+                <form action="../API/crud/create.php" method="post">
                     <label for="fullname">Enter New Full Name:- </label>
                     <input type="text" id="fullname" name="fullname" required>
                     <br>
@@ -46,7 +46,7 @@
             <div id="editapidata">
                 <h2>Edit API Data</h2>
 
-                <form action="update.php" method="post">
+                <form action="../API/crud/update.php" method="post">
                     <label for="newfullname">Enter Full Name:- </label>
                     <input type="text" id="newfullname" name="newfullname" required>
                     <br>
@@ -66,7 +66,7 @@
             <div id="deleteapidata">
                 <h2>Delete API Data</h2>
 
-                <form action="delete.php" method="post">
+                <form action="../API/crud/delete.php" method="post">
                     <h3>
                         Are you sure you want to delete the specific record no . <span id="recordno"></span> from the database table? 
                     </h3>
@@ -76,13 +76,13 @@
                     <button type="button" onclick="hideagain()">No</button>
                 </form>
             </div>
-            <script src="script.js"></script>
+            <script src="js/script.js"></script>
         </div>
 
         <footer>
             Copyright &copy; 2026 Jimmy Jayant
             <br>
-            <img src="india_img.png">भारत में निर्मित
+            <img src="images/India.png">भारत में निर्मित
         </footer>
     </body>
 </html>

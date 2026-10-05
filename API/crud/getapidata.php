@@ -12,11 +12,7 @@ else
     else
     {      
         // Connect to the mysql database 'myapidb'
-        $conn = new mysqli("localhost", "root", "", "myapidb");
-        if($conn->connect_error)
-        {
-            die("Database Connection failed." . $conn->connect_error);
-        }
+        require_once("db.php");
 
         // SQL Query Template
         $sql = "SELECT * FROM token WHERE token_key=?";

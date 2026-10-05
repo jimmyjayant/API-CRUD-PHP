@@ -57,8 +57,8 @@ Just follow the below steps to get its functioning.
 2. Place the downloaded repo of this website in the htdocs folder of xampp (windows OS) or the custom location of your webserver root folder.
 3. Go to the location of the website repo.
 4. Go to the CLIENT folder.
-5. Open the index.php file.
-6. Set the proper location of the $url variable according to your own localhost. And uncomment the $url variable line. And Save the file.
+5. Open the env file.
+6. Set the proper location of the $url variable according to your own localhost. And Save the file.
 7. Start the XAMPP and start the Apache and MYSQL.
 8. Go to your browser and open both the localhost and localhost/phpMyAdmin.
 9. Now, in one tab of your browser. Open the API folder.

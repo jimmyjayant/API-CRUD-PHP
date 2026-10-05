@@ -1,6 +1,6 @@
 <?php
-// Change the below value of $url according to the location of your project folder
-$url = "http://localhost/Projects/PHP/API%20CRUD%20PHP/API/getapidata.php";
+require_once(".env");
+
 $ch = curl_init();
 $data = ['key' => 'asdfghjklzxcvbnm'];
 curl_setopt($ch, CURLOPT_URL, $url);

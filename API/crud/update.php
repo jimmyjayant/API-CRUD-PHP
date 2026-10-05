@@ -12,20 +12,9 @@ else
     else
     {
         // Connect to the myapidb database 
-        $conn = new mysqli("localhost", "root", "", "myapidb");
+        require_once("db.php");
 
-        if($conn->connect_error)
-        {
-            die("Database connection failed!");
-        }
-
-        function sanitize_input($input)
-        {
-            $input = trim($input);
-            $input = stripslashes($input);
-            $input = htmlspecialchars($input);
-            return $input;
-        }
+        require_once("filter.php");
 
         $idvalue = sanitize_input($_POST['idvalue']);
         $fullname = sanitize_input($_POST['newfullname']);

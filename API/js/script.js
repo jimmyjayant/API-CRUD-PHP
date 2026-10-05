@@ -6,7 +6,7 @@ function getapidata()
         document.getElementById("readapidata").innerHTML = this.responseText;
     }
 
-    xmlhttp.open("GET", "read.php");
+    xmlhttp.open("GET", "../API/crud/read.php");
     xmlhttp.send();
 
     document.querySelector("#readapidata + hr").style.display = "block";
