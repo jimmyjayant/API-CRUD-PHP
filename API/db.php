@@ -34,44 +34,52 @@ if(!$conn->query($sql))
     die("Error Creating Table!");
 }
 
-// Insert data into the table 'apidatatable'
-/*
-$sql = "INSERT IGNORE INTO apidatatable (fullname, email) VALUES ('Vishal Kumar', 'vishalkumar@gmail.com'),
-                                                          ('Krishan Kumar', 'krishan01@gmail.com'),
-                                                          ('Manoj Kumar', 'manoj34@gmail.com'),
-                                                          ('Hansraj', 'hans@gmail.com'),
-                                                          ('Vishnu Kumar', 'vishnu@outlook.com')";
-*/
 
-// Insert data into the table 'apidatatable' using multi_query() function
-$sql = "INSERT IGNORE INTO apidatatable (fullname, email) VALUES ('Vishal Kumar', 'vishalkumar@gmail.com');";
-$sql .= "INSERT IGNORE INTO apidatatable (fullname, email) VALUES ('Krishan Kumar', 'krishan01@gmail.com');";
-$sql .= "INSERT IGNORE INTO apidatatable (fullname, email) VALUES ('Manoj Kumar', 'manoj34@gmail.com');";
-$sql .= "INSERT IGNORE INTO apidatatable (fullname, email) VALUES ('Hansraj', 'hans@gmail.com');";
-$sql .= "INSERT IGNORE INTO apidatatable (fullname, email) VALUES ('Vishnu Kumar', 'vishnu@outlook.com');";
+// SQL Query Template
+$sql = "INSERT IGNORE INTO apidatatable(fullname, email) VALUES(?,?)";
 
-// Perform sql query
-/*
-$result = $conn->query($sql);
+// Prepare the sql query template
+$stmt = $conn->prepare($sql);
 
-if($result !== TRUE)
+// Check if prepared statement exists
+if($stmt)
 {
-    die("Error Inserting Data!");
-}
-*/
+    // Bind parameters
+    $stmt->bind_param("ss", $fullname, $email);
 
-if($conn->multi_query($sql))
-{
-    do{
-        if($result = $conn->store_result())
-        {
-            $result->free();
-        }
-    }while($conn->next_result());
-}
-else
-{
-    die("Error Inserting Data!");
+    // Provide values to variables
+    $fullname = "Vishal Kumar";
+    $email = "vishalkumar@gmail.com";
+
+    // Execute the prepared statement
+    $stmt->execute();
+
+    $fullname = "Krishan Kumar";
+    $email = "krishan01@gmail.com";
+
+    // Execute the prepared statement
+    $stmt->execute();
+
+    $fullname = "Manoj Kumar";
+    $email = "manoj34@gmail.com";
+
+    // Execute the prepared statement
+    $stmt->execute();
+
+    $fullname = "Hansraj";
+    $email = "hans@gmail.com";
+
+    // Execute the prepared statement
+    $stmt->execute();
+
+    $fullname = "Vishnu Kumar";
+    $email = "vishnu@outlook.com";
+
+    // Execute the prepared statement
+    $stmt->execute();
+
+    // Close the prepared statement
+    $stmt->close();
 }
 
 // Create table token in myapidb database
@@ -86,12 +94,36 @@ if(!$conn->query($sql))
     die("Error Creating Table!");
 }
 
+// SQL Query template
+$sql = "INSERT IGNORE INTO token(token_key, token_counter) VALUES(?,?)";
 
-$sql = "INSERT IGNORE INTO token (token_key, token_counter) VALUES ('asdfghjklzxcvbnm', 0)";
+// Prepare the sql query template
+$stmt = $conn->prepare($sql);
 
-if(!$conn->query($sql))
+if($stmt)
 {
-    die("Error Inserting Data!");
+    // Bind parameters
+    $stmt->bind_param("si", $key, $counter);
+
+    // Provide values to variables
+    $key = "asdfghjklzxcvbnm";
+    $counter = "0";
+
+    // Execute the prepared statement
+    $result = $stmt->execute();
+
+    // Show result
+    if($result)
+    {
+        // echo "Data Inserted Successfully!";
+    }
+    else
+    {
+        echo "Data Insertion Failed!";
+    }
+
+    // Close the prepared statement
+    $stmt->close();
 }
 
 // Close the connection 

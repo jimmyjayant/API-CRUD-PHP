@@ -1,8 +1,16 @@
 <?php
-if($_SERVER['REQUEST_METHOD'] === "POST")
+if($_SERVER['REQUEST_METHOD'] !== "POST")
 {
-    if(isset($_POST['key']))
-    {            
+    die("The request was not submitted.");
+}
+else
+{
+    if(!isset($_POST['key']))
+    {
+        die("Invalid API Key!");
+    }
+    else
+    {      
         // Connect to the mysql database 'myapidb'
         $conn = new mysqli("localhost", "root", "", "myapidb");
         if($conn->connect_error)
@@ -10,60 +18,105 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
             die("Database Connection failed." . $conn->connect_error);
         }
 
-        // SQL query
-        $sql = "SELECT * FROM token WHERE token_key='{$_POST['key']}'";
-        $result = $conn->query($sql);
-        if($result->num_rows === 1)
+        // SQL Query Template
+        $sql = "SELECT * FROM token WHERE token_key=?";
+
+        // Prepare the SQL Query Template
+        $stmt = $conn->prepare($sql);
+
+        // Check if prepared statement exists
+        if($stmt)
         {
-            $row = $result->fetch_assoc();
-            if($row['token_counter'] >= 5)
+            // Bind parameters
+            $stmt->bind_param("s", $key);
+
+            // Provide values to variables
+            $key = $_POST['key'];
+
+            // Execute the prepared statement
+            $result = $stmt->execute();
+
+            if($result)
             {
-                die("API Limit Reached");
-            }
-            else
-            {
-                $apicounter = $row['token_counter'] + 1;
-                $sql = "UPDATE token SET token_counter = $apicounter WHERE token_key = '{$row['token_key']}'";
-                $result = $conn->query($sql);
-                if(!$result)
+                $row = $stmt->get_result();
+
+                $data = $row->fetch_assoc();
+
+                if($data['token_counter'] >= 5)
                 {
-                    die("Please Try Again Later!");
+                    die("API Limit Reached");
                 }
                 else
                 {
-                    $sql = "SELECT * FROM apidatatable";
-                    $result = $conn->query($sql);
-                    if(!$result)
+                    $apicounter = $data['token_counter'] + 1;
+
+                    // SQL Query Template
+                    $sql = "UPDATE token SET token_counter=? WHERE token_key=?";
+
+                    // Prepare the sql query template
+                    $stmt = $conn->prepare($sql);
+
+                    // Check if prepared statement exists
+                    if($stmt)
                     {
-                        die("Error Retrieving Data");
-                    }
-                    else
-                    {
-                        if($result->num_rows > 0)
+                        // Bind parameters
+                        $stmt->bind_param("is", $apicounter, $key);
+
+                        // Provide values to variables
+                        $key = $data['token_key'];
+
+                        // Execute the prepared statement
+                        $result = $stmt->execute();
+
+                        if($result)
                         {
-                            echo "<table><tr><th>ID</th><th>Full Name</th><th>Email</th></tr>";
-                            while($row = $result->fetch_assoc())
+                            // SQL Query Template
+                            $sql = "SELECT * FROM apidatatable";
+
+                            // Prepare the sql query template
+                            $stmt = $conn->prepare($sql);
+
+                            // Check if prepared statement exists
+                            if($stmt)
                             {
-                                echo "<tr><td>{$row['id']}</td><td>{$row['fullname']}</td><td>{$row['email']}</td></tr>";
+                                // Execute the prepared statement
+                                $result = $stmt->execute();
+
+                                if($result)
+                                {
+                                    $row = $stmt->get_result();
+
+                                    echo "<table><tr><th>ID</th><th>Full Name</th><th>Email</th></tr>";
+
+                                    while($data = $row->fetch_assoc())
+                                    {
+                                        echo "<tr>
+                                        <td>{$data['id']}</td>
+                                        <td>{$data['fullname']}</td>
+                                        <td>{$data['email']}</td>
+                                        </tr>";
+                                    }
+
+                                    echo "</table>";
+                                }
+                                else
+                                {
+                                    die("Error Retrieving Data");
+                                }
                             }
-                            echo "</table>";
+                        }
+                        else
+                        {
+                            die("Please Try Again Later!");
                         }
                     }
                 }
             }
-        }
-        else
-        {
-            die("Error Retrieving Data!");
-        }
+            else
+            {
+                die("Error Retrieving Data!");
+            }
+        }        
     }
-    else
-    {
-        die("Invalid API Key!");
-    }
-}
-else
-{
-    die("The request was not submitted.");
 }
 ?>

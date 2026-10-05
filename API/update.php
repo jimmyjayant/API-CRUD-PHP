@@ -1,7 +1,15 @@
 <?php
-if($_SERVER['REQUEST_METHOD'] === 'POST')
+if($_SERVER['REQUEST_METHOD'] !== 'POST')
 {
-    if(isset($_POST['updatesubmit']))
+    echo "Request method is not POST!";
+}
+else
+{
+    if(!isset($_POST['updatesubmit']))
+    {
+        echo "Error getting Data!";
+    }
+    else
     {
         // Connect to the myapidb database 
         $conn = new mysqli("localhost", "root", "", "myapidb");
@@ -23,22 +31,30 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         $fullname = sanitize_input($_POST['newfullname']);
         $email = sanitize_input($_POST['newemail']);
 
-        // SQL Query
-        $sql = "UPDATE apidatatable SET fullname = '$fullname', email = '$email' WHERE id = $idvalue";
+        // SQL Query Template
+        $sql = "UPDATE apidatatable SET fullname = ?, email = ? WHERE id = ?";
 
-        // Perform sql query
-        if($conn->query($sql))
+        // Prepare the sql query template
+        $stmt = $conn->prepare($sql);
+
+        // Check if prepared statement exists
+        if($stmt)
         {
-            echo "Data Updated Successfully. Please go back and Refresh the webpage to see the updated results.";
-        }
-        else
-        {
-            echo "Error Updating Data!";
+            // Bind parameters
+            $stmt->bind_param("ssi", $fullname, $email, $idvalue);
+
+            // Execute the prepared statement
+            $result = $stmt->execute();
+
+            if($result)
+            {
+                echo "Data Updated Successfully. Please go back and Refresh the webpage to see the updated results.";
+            }
+            else
+            {
+                echo "Error updating data!";
+            }
         }
     }
-}
-else
-{
-    echo "Error getting Data!";
 }
 ?>

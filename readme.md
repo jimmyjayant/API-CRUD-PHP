@@ -15,7 +15,7 @@ Languages used in the development of website:-
 1. HTML5
 2. CSS3
 3. Vanilla JavaScript
-4. PHP 8.4
+4. PHP 8.0+
 5. MySQL
 6. SQL
 7. AJAX

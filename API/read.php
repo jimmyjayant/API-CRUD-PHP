@@ -1,19 +1,45 @@
 <?php
-require("db.php");
+require_once("db.php");
 
 // Read api data from table apidatatable
+
+// SQL Query Template
 $sql = "SELECT * FROM apidatatable";
-$result = $conn->query($sql);
-if($result->num_rows > 0)
+
+// Prepare the SQL query template
+$stmt = $conn->prepare($sql);
+
+// Check if prepared statement exists
+if($stmt)
 {
-    echo "<table><tr><th>ID</th><th>Full Name</th><th>Email</th><th></th><th></th></tr>";
-    while($row = $result->fetch_assoc())
+    // Execute the prepared statement
+    $result = $stmt->execute();
+
+    if($result)
     {
-        echo "<tr><td>{$row['id']}</td><td>{$row['fullname']}</td><td>{$row['email']}</td>
-        <td><img src='edit icon.png' onclick='edit({$row['id']})' title='Edit Entry No. {$row['id']}'></td>
-        <td><img src='delete icon.png' onclick='del({$row['id']})' title='Delete Entry No. {$row['id']}'></td>
+        $row = $stmt->get_result();
+
+        echo "<table>
+        <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th></th>
+        <th></th>
         </tr>";
+
+        while($data = $row->fetch_assoc())
+        {
+            echo "<tr>
+            <td>{$data['id']}</td>
+            <td>{$data['fullname']}</td>
+            <td>{$data['email']}</td>
+            <td><img src='edit icon.png' onclick='edit({$data['id']})' title='Edit Entry No. {$data['id']}'></td>
+            <td><img src='delete icon.png' onclick='del({$data['id']})' title='Delete Entry No. {$data['id']}'></td>
+            </tr>";
+        }
+        
+        echo "</table>";
     }
-    echo "</table>";
 }
 ?>

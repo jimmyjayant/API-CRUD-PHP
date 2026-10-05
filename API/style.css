@@ -1,0 +1,120 @@
+* {
+    box-sizing:border-box;
+}
+
+body {
+    margin:0;
+    padding:0;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    flex-wrap:nowrap;
+}
+
+.header {
+    display:flex;
+    flex-direction:row;
+    flex-wrap:nowrap;
+    justify-content:space-between;
+    padding:1rem;
+    background:linear-gradient(to top, grey, lightgrey);
+}
+
+.heading {
+    flex:1;
+    text-align:center;
+    font-size:clamp(1rem, 2vw + 1rem, 2rem);
+    align-self:center;
+}
+
+.create {
+    align-self:center;
+}
+
+.create img {
+    vertical-align:middle;
+    padding:0.3rem;
+    margin-bottom:0.1rem;
+}
+
+.create button {
+    font-size:1rem;
+    padding:1rem;
+    background-color:transparent;
+    border:none;
+    cursor:pointer;
+}
+
+.create button:hover {
+    background-color:grey;
+}
+
+.main {
+    flex:1;
+    margin:0;
+    padding:1rem;
+}
+
+
+#readapidata table {
+    border:none;
+    width:100%;
+    border-collapse:collapse;
+}
+
+#readapidata table tr {
+    font-size:1.5rem;
+    padding:1rem;
+    text-align:center;
+}
+
+#readapidata table th {
+    padding:1rem;
+}
+
+#readapidata table td {
+    padding:1rem;
+    font-size:1.5rem;
+}
+
+#readapidata table tr:hover {
+    background-color:lightgrey;
+    cursor:pointer;
+}
+
+#insertapidata {
+    display:none;
+}
+
+#insertapidata h2 {
+    text-align:center;
+}
+
+#insertapidata form {
+    text-align:center;
+}
+
+#editapidata {
+    display:none;
+    text-align:center;
+}
+
+#deleteapidata {
+    display:none;
+    text-align:center;
+}
+
+hr {
+    display:none;
+}
+
+#readapidata, #insertapidata, #editapidata, #deleteapidata {
+    padding:1rem;
+}
+
+footer {
+    margin:0;
+    padding:1rem;
+    text-align:center;
+    background:linear-gradient(to bottom, grey, lightgrey);
+}

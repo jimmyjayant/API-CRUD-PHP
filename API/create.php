@@ -1,7 +1,15 @@
 <?php
-if($_SERVER['REQUEST_METHOD'] == 'POST')
+if($_SERVER['REQUEST_METHOD'] !== 'POST')
 {
-    if(isset($_POST['insertsubmit']))
+    echo "Request method is not POST!";
+}
+else
+{
+    if(!isset($_POST['insertsubmit']))
+    {
+        echo "Error getting data!";
+    }
+    else
     {
         // Connect to the myapidb database 
         $conn = new mysqli("localhost", "root", "", "myapidb");
@@ -22,22 +30,33 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         $fullname = sanitize_input($_POST['fullname']);
         $email = sanitize_input($_POST['email']);
 
-        // SQL Query
-        $sql = "INSERT INTO apidatatable (fullname, email) VALUES ('$fullname', '$email')";
+        // SQL Query Template
+        $sql = "INSERT IGNORE INTO apidatatable (fullname, email) VALUES (?,?)";
 
-        // Perform sql query
-        if($conn->query($sql))
+        // Prepare the sql query template
+        $stmt = $conn->prepare($sql);
+
+        // Check if prepared statement exists
+        if($stmt)
         {
-            echo "Data Inserted Successfully.";
-        }
-        else
-        {
-            echo "Error Inserting Data!";
+            // Bind parameters
+            $stmt->bind_param("ss", $fullname, $email);
+
+            // Execute the prepared statement
+            $result = $stmt->execute();
+
+            if($result)
+            {
+                echo "Data Inserted Successfully!";
+            }
+            else
+            {
+                echo "Data Insertion Failed!";
+            }
+
+            // Close the prepared statement
+            $stmt->close();
         }
     }
-}
-else
-{
-    echo "Error getting Data!";
 }
 ?>

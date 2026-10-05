@@ -1,7 +1,15 @@
 <?php
-if($_SERVER['REQUEST_METHOD'] === "POST")
-{ 
-    if(isset($_POST['removesubmit']))
+if($_SERVER['REQUEST_METHOD'] !== "POST")
+{
+    echo "Request method is not POST!";
+}
+else
+{
+    if(!isset($_POST['removesubmit']))
+    {
+        echo "Error submitting form!";
+    }
+    else
     {
         // Connect to the myapidb database 
         $conn = new mysqli("localhost", "root", "", "myapidb");
@@ -21,22 +29,33 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
 
         $deleteid = sanitize_input($_POST['deleteid']);
 
-        // SQL Query
-        $sql = "DELETE FROM apidatatable WHERE id = $deleteid";
+        // SQL Query Template
+        $sql = "DELETE FROM apidatatable WHERE id=?";
 
-        // Perform sql query
-        if($conn->query($sql))
+        // Prepare the SQL query template
+        $stmt = $conn->prepare($sql);
+
+        // Check if prepared statement exists
+        if($stmt)
         {
-            echo "Data Deleted Successfully. Please go back and Refresh the webpage to see the updated results.";
-        }
-        else
-        {
-            echo "Error Deleting Data!";
+            // Bind parameters
+            $stmt->bind_param("i", $deleteid);
+
+            // Execute the prepared statement
+            $result = $stmt->execute();
+
+            if($result)
+            {
+                echo "Data Deleted Successfully. Please go back and Refresh the webpage to see the updated results.";
+            }
+            else
+            {
+                echo "Error Deleting Data!";
+            }
+
+            // Close the prepared statement
+            $stmt->close();
         }
     }
-}
-else
-{
-    echo "Error Submitting Form!";
 }
 ?>
