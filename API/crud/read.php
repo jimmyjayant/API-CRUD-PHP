@@ -21,31 +21,48 @@ if($stmt)
 
         if($row->num_rows == 0)
         {
-            echo "No entry found. Please add new user! Click on Create New User button present at top right corner of webpage";
+            $data['data'] = "No entry found. Please add new user! Click on Create New User button present at top right corner of webpage";
+            $data['status'] = 'error';
+            $data = json_encode($data);
+            header("Content-Type:application/json");
+            echo $data;
+            exit();
+        
         }
         else
         {
+            ob_start();
+
             echo "<table>
             <tr>
-            <th>ID</th>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th></th>
-            <th></th>
+            <th data-id='ID'>ID</th>
+            <th data-id='Full Name'>Full Name</th>
+            <th data-id='Email'>Email</th>
+            <th data-id='Edit'>Edit</th>
+            <th data-id='Delete'>Delete</th>
             </tr>";
 
             while($data = $row->fetch_assoc())
             {
                 echo "<tr>
-                <td>{$data['id']}</td>
-                <td>{$data['fullname']}</td>
-                <td>{$data['email']}</td>
-                <td><img src='../API/images/edit.png' onclick='edit({$data['id']})' title='Edit Entry No. {$data['id']}'></td>
-                <td><img src='../API/images/delete.png' onclick='del({$data['id']})' title='Delete Entry No. {$data['id']}'></td>
+                <td data-id='ID'>{$data['id']}</td>
+                <td data-id='Full Name'>{$data['fullname']}</td>
+                <td data-id='Email'>{$data['email']}</td>
+                <td data-id='Edit'><img src='../API/images/edit.png' onclick='edit({$data['id']})' title='Edit Entry No. {$data['id']}'></td>
+                <td data-id='Delete'><img src='../API/images/delete.png' onclick='del({$data['id']})' title='Delete Entry No. {$data['id']}'></td>
                 </tr>";
             }
             
             echo "</table>";
+
+            $data['data'] = ob_get_clean();
+
+            $data['status'] = 'success';
+
+            $data = json_encode($data);
+            header("Content-Type: application/json");
+            echo $data;
+            exit();
         }
     }
 }

@@ -1,48 +1,61 @@
 <?php
 if($_SERVER['REQUEST_METHOD'] !== 'POST')
 {
-    echo "Request method is not POST!";
+    $data['status'] = 'error';
+    $data['data'] = 'Request method is not POST!';
+    $data = json_encode($data);
+    header("Content-Type: application/json");
+    echo $data;
+    exit();
 }
 else
 {
-    if(!isset($_POST['updatesubmit']))
+    // Connect to the myapidb database 
+    require_once("db.php");
+
+    require_once("filter.php");
+
+    // Decode the json data
+    $data = file_get_contents('php://input');
+
+    $data = json_decode($data, true);
+
+    $idvalue = sanitize_input($data['idvalue']);
+    $fullname = sanitize_input($data['newfullname']);
+    $email = sanitize_input($data['newemail']);
+
+    // SQL Query Template
+    $sql = "UPDATE apidatatable SET fullname = ?, email = ? WHERE id = ?";
+
+    // Prepare the sql query template
+    $stmt = $conn->prepare($sql);
+
+    // Check if prepared statement exists
+    if($stmt)
     {
-        echo "Error getting Data!";
-    }
-    else
-    {
-        // Connect to the myapidb database 
-        require_once("db.php");
+        // Bind parameters
+        $stmt->bind_param("ssi", $fullname, $email, $idvalue);
 
-        require_once("filter.php");
+        // Execute the prepared statement
+        $result = $stmt->execute();
 
-        $idvalue = sanitize_input($_POST['idvalue']);
-        $fullname = sanitize_input($_POST['newfullname']);
-        $email = sanitize_input($_POST['newemail']);
-
-        // SQL Query Template
-        $sql = "UPDATE apidatatable SET fullname = ?, email = ? WHERE id = ?";
-
-        // Prepare the sql query template
-        $stmt = $conn->prepare($sql);
-
-        // Check if prepared statement exists
-        if($stmt)
+        if($result)
         {
-            // Bind parameters
-            $stmt->bind_param("ssi", $fullname, $email, $idvalue);
-
-            // Execute the prepared statement
-            $result = $stmt->execute();
-
-            if($result)
-            {
-                echo "Data Updated Successfully. Please go back and Refresh the webpage to see the updated results.";
-            }
-            else
-            {
-                echo "Error updating data!";
-            }
+            $data['status'] = 'success';
+            $data['data'] = 'Data Updated Successfully.';
+            $data = json_encode($data);
+            header("Content-Type: application/json");
+            echo $data;
+            exit();
+        }
+        else
+        {
+            $data['status'] = 'error';
+            $data['data'] = 'Error updating data!';
+            $data = json_encode($data);
+            header("Content-Type: application/json");
+            echo $data;
+            exit();
         }
     }
 }

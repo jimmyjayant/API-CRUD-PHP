@@ -1,53 +1,64 @@
 <?php
 if($_SERVER['REQUEST_METHOD'] !== 'POST')
 {
-    echo "Request method is not POST!";
+    $data['status'] = 'error';
+    $data['data'] = 'Request method is not POST!';
+    $data = json_encode($data);
+    header("Content-Type: application/json");
+    echo $data;
+    exit();
 }
 else
 {
-    if(!isset($_POST['insertsubmit']))
+    // Decode the json data
+    $data = file_get_contents('php://input');
+
+    $data = json_decode($data, true);
+
+    // Connect to the myapidb database 
+    require_once("db.php");
+
+    // function sanitize_input()
+    require_once("filter.php");
+
+    // Sanitize the user input
+    $fullname = sanitize_input($data['fullname']);
+    $email = sanitize_input($data['email']);
+
+    // SQL Query Template
+    $sql = "INSERT IGNORE INTO apidatatable (fullname, email) VALUES (?,?)";
+
+    // Prepare the sql query template
+    $stmt = $conn->prepare($sql);
+
+    // Check if prepared statement exists
+    if($stmt)
     {
-        echo "Error getting data!";
-    }
-    else
-    {
-        // Connect to the myapidb database 
-        require_once("db.php");
+        // Bind parameters
+        $stmt->bind_param("ss", $fullname, $email);
 
-        // function sanitize_input()
-        require_once("filter.php");
+        // Execute the prepared statement
+        $result = $stmt->execute();
 
-        // Sanitize the user input
-        $fullname = sanitize_input($_POST['fullname']);
-        $email = sanitize_input($_POST['email']);
-
-        // SQL Query Template
-        $sql = "INSERT IGNORE INTO apidatatable (fullname, email) VALUES (?,?)";
-
-        // Prepare the sql query template
-        $stmt = $conn->prepare($sql);
-
-        // Check if prepared statement exists
-        if($stmt)
+        if($result)
         {
-            // Bind parameters
-            $stmt->bind_param("ss", $fullname, $email);
-
-            // Execute the prepared statement
-            $result = $stmt->execute();
-
-            if($result)
-            {
-                echo "Data Inserted Successfully!";
-            }
-            else
-            {
-                echo "Data Insertion Failed!";
-            }
-
-            // Close the prepared statement
-            $stmt->close();
+            $data['status'] = "success";
+            $data['data'] = "Data Inserted Successfully!";
+            $data = json_encode($data);
+            header("Content-Type: application/json");
+            echo $data;
         }
+        else
+        {
+            $data['status'] = "error";
+            $data['data'] = "Data Insertion Failed!";
+            $data = json_encode($data);
+            header("Content-Type: application/json");
+            echo $data;
+        }
+
+        // Close the prepared statement
+        $stmt->close();
     }
 }
 ?>

@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Jimmy Jayant">
         <title>API CRUD PHP</title>
         <link rel="stylesheet" href="css/style.css">
     </head>
@@ -27,16 +28,20 @@
             <div id="insertapidata">
                 <h2>Insert API Data</h2>
                 
-                <form action="../API/crud/create.php" method="post">
-                    <label for="fullname">Enter New Full Name:- </label>
+                <form id="insertForm">
+                    <div id="insert_status"></div>
+
+                    <label for="fullname">Full Name:- </label>
+                    <br>
                     <input type="text" id="fullname" name="fullname" required>
                     <br>
                     <br>
-                    <label for="email">New Email:- </label>
+                    <label for="email">Email:- </label>
+                    <br>
                     <input type="email" id="email" name="email" required>
                     <br>
                     <br>
-                    <input type="submit" name="insertsubmit" value="Submit">
+                    <input type="submit" value="Submit">
                     <input type="reset" value="Reset"> 
                 </form>
             </div>
@@ -46,17 +51,21 @@
             <div id="editapidata">
                 <h2>Edit API Data</h2>
 
-                <form action="../API/crud/update.php" method="post">
-                    <label for="newfullname">Enter Full Name:- </label>
+                <form id="editForm">
+                    <div id="edit_status"></div>
+
+                    <label for="newfullname">Full Name:- </label>
+                    <br>
                     <input type="text" id="newfullname" name="newfullname" required>
                     <br>
                     <br>
                     <label for="newemail">Email:- </label>
+                    <br>
                     <input type="email" id="newemail" name="newemail" required>
                     <br>
                     <br>
                     <input type="hidden" name="idvalue" value="">
-                    <input type="submit" name="updatesubmit" value="Submit">
+                    <input type="submit" value="Submit">
                     <input type="reset" value="Reset">
                 </form>
             </div>
@@ -66,16 +75,19 @@
             <div id="deleteapidata">
                 <h2>Delete API Data</h2>
 
-                <form action="../API/crud/delete.php" method="post">
+                <form id="deleteForm">
+                    <div id="delete_status"></div>
+
                     <h3>
                         Are you sure you want to delete the specific record no . <span id="recordno"></span> from the database table? 
                     </h3>
                     <br>
-                    <input type="hidden" name="deleteid" value="">
-                    <input type="submit" name="removesubmit" value="Yes">
+                    <input type="hidden" name="deleteid" id="deleteid" value="">
+                    <input type="submit" value="Yes">
                     <button type="button" onclick="hideagain()">No</button>
                 </form>
             </div>
+
             <script src="js/script.js"></script>
         </div>
 
