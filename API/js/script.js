@@ -151,7 +151,7 @@ function updateData(event)
         }
     }
 
-    xmlhttp.open("POST", "../API/crud/update.php", true);
+    xmlhttp.open("PUT", "../API/crud/update.php", true);
     xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.send(EditFormData);
 }
@@ -201,9 +201,9 @@ function deleteData(event)
         }
     }
 
-    xmlhttp.open("POST", "../API/crud/delete.php", true);
-    xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xmlhttp.send("deleteid=" + deleteid);
+    xmlhttp.open("DELETE", "../API/crud/delete.php", true);
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.send(JSON.stringify({deleteid: deleteid}));
 }
 
 

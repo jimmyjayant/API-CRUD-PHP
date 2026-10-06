@@ -1,8 +1,8 @@
 <?php
-if($_SERVER['REQUEST_METHOD'] !== "POST")
+if($_SERVER['REQUEST_METHOD'] !== "DELETE")
 {
     $data['status'] = 'error';
-    $data['data'] = 'Request method is not POST!';
+    $data['data'] = 'Request method is not DELETE!';
     $data = json_encode($data);
     header("Content-Type: application/json");
     echo $data;
@@ -15,8 +15,11 @@ else
 
     require_once("filter.php");
 
-    $deleteid = sanitize_input($_POST['deleteid']);
-
+    // $deleteid = sanitize_input($_DELETE['deleteid']);
+    $deleteid = file_get_contents('php://input');
+    $deleteid = json_decode($deleteid, true);
+    $id = $deleteid['deleteid'];
+    
     // SQL Query Template
     $sql = "DELETE FROM apidatatable WHERE id=?";
 
@@ -27,7 +30,7 @@ else
     if($stmt)
     {
         // Bind parameters
-        $stmt->bind_param("i", $deleteid);
+        $stmt->bind_param("i", $id);
 
         // Execute the prepared statement
         $result = $stmt->execute();

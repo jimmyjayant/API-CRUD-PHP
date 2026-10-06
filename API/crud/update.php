@@ -1,8 +1,8 @@
 <?php
-if($_SERVER['REQUEST_METHOD'] !== 'POST')
+if($_SERVER['REQUEST_METHOD'] !== 'PUT')
 {
     $data['status'] = 'error';
-    $data['data'] = 'Request method is not POST!';
+    $data['data'] = 'Request method is not PUT!';
     $data = json_encode($data);
     header("Content-Type: application/json");
     echo $data;
