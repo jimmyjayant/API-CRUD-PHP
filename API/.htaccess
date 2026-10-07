@@ -1,0 +1,15 @@
+RewriteEngine On
+RewriteBase /Projects/PHP/API_CRUD_PHP/API/
+
+# 1. Redirect root requests to the public folder
+ RewriteRule ^$ public/index.php [L]
+# RewriteRule ^(.*)$ public/index.php?url=$1 [QSA,L]
+
+
+# 2. If the request isn't for a real file or directory in the root...
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# 3. ...forward the request to the public folder
+RewriteRule ^(.*)$ public/$1 [L]
+

@@ -17,7 +17,7 @@ function getapidata()
         }
     }
 
-    xmlhttp.open("GET", "../API/crud/read.php", true);
+    xmlhttp.open("GET", "api/users", true);
     xmlhttp.send();
 
     document.querySelector("#readapidata + hr").style.display = "block";
@@ -67,7 +67,7 @@ function insertNewData(event)
         }
     }
 
-    xmlhttp.open("POST", "../API/crud/create.php", true);
+    xmlhttp.open("POST", "api/users", true);
     xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.send(InsertFormData);
 }
