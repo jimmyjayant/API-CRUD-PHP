@@ -15,11 +15,6 @@ else
 
     require_once("../app/Helpers/sanitize.php");
 
-    // $deleteid = sanitize_input($_DELETE['deleteid']);
-    // $deleteid = file_get_contents('php://input');
-    // $deleteid = json_decode($deleteid, true);
-    // $id = $deleteid['deleteid'];
-
     $id = sanitize_input($userID);
     
     // SQL Query Template

@@ -92,7 +92,7 @@ body {
 
 #readapidata table td {
     padding:0.5rem;
-    font-size:clamp(0.8rem, 1rem + 2vw, 1.5rem);
+    font-size: clamp(0.8rem, 0.8rem + 1vw, 1.5rem);
     border:2px solid black;
 }
 
@@ -149,11 +149,17 @@ footer {
     }
 
     #readapidata table td {
+        padding:0.2rem;
         display:block;
         position:relative;
         padding-left:50%;
         text-align:right;
         word-wrap:break-word;
+        border:1px solid black;
+    }
+
+    #readapidata table td:not(:first-child) {
+        border-top:none;
     }
 
     #readapidata table td:before {

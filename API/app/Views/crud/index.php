@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Jimmy Jayant">
+        <meta name="description" content="The API_CRUD_PHP Project website demonstrates the crud functionality with the api database using REST API design. A Simple example of API-based data management.">
         <title>API CRUD PHP</title>
         <link rel="stylesheet" href="css/style.css">
     </head>

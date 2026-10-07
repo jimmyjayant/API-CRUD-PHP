@@ -16,9 +16,7 @@ if($stmt)
     $stmt->bind_param("i", $id);
 
     // Provide values to variables
-    // $id = $_GET['id'];
     $id = $userID;
-
 
     // Execute the prepared statement
     $result = $stmt->execute();

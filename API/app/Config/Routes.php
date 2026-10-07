@@ -81,6 +81,19 @@ $router->delete("/api/users/{id:number}", [UserController::class, 'delete']);
 // Match routes to request
 $response = $router->dispatch($request);
 
+// Check if the route exists for a particular request without executing the respective controller
+// $result = $router->match($request);
+
+// if($result->isFound())
+// {
+//     // echo "found";
+//     $route = $result->getRoute();
+// }
+// else
+// {
+//     echo "not found";
+// }
+
 // Emitting or echoing response
 $emitter = new SapiEmitter;
 $emitter->emit($response);

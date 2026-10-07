@@ -20,7 +20,6 @@ else
 
     $data = json_decode($data, true);
 
-    // $idvalue = sanitize_input($data['idvalue']);
     $idvalue = sanitize_input($userID);
 
     $fullname = sanitize_input($data['newfullname']);

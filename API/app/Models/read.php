@@ -27,7 +27,6 @@ if($stmt)
             header("Content-Type:application/json");
             echo $data;
             exit();
-        
         }
         else
         {
