@@ -1,13 +1,14 @@
 <?php
-if($_SERVER['REQUEST_METHOD'] !== "POST")
+if($_SERVER['REQUEST_METHOD'] !== "GET")
 {
     die("The request was not submitted.");
 }
 else
 {
-    if(!isset($_POST['key']))
+    // API Authentication Key is provided in Headers
+    if(!isset($_SERVER['HTTP_X_API_KEY']))
     {
-        die("Invalid API Key!");
+        die("Provide API Key!");
     }
     else
     {      
@@ -15,7 +16,7 @@ else
         require_once("../app/Database/db.php");
 
         // SQL Query Template
-        $sql = "SELECT * FROM token WHERE token_key=?";
+        $sql = "SELECT token_key, token_counter FROM token WHERE token_key=?";
 
         // Prepare the SQL Query Template
         $stmt = $conn->prepare($sql);
@@ -27,7 +28,7 @@ else
             $stmt->bind_param("s", $key);
 
             // Provide values to variables
-            $key = $_POST['key'];
+            $key = $_SERVER['HTTP_X_API_KEY'] ?? NULL;
 
             // Execute the prepared statement
             $result = $stmt->execute();
@@ -67,7 +68,7 @@ else
                         if($result)
                         {
                             // SQL Query Template
-                            $sql = "SELECT * FROM apidatatable";
+                            $sql = "SELECT id, fullname, email FROM apidatatable";
 
                             // Prepare the sql query template
                             $stmt = $conn->prepare($sql);

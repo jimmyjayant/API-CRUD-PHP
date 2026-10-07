@@ -23,7 +23,7 @@ use HttpSoft\Emitter\SapiEmitter;
 use App\Controllers\HomeController;
 use App\Controllers\UsersController;
 use App\Controllers\UserController;
-
+use App\Controllers\APIController;
 
 
 
@@ -55,11 +55,15 @@ $router->get('/api/users', [UsersController::class, 'index']);
 $router->get('/api/users/{id:number}', [UserController::class, "index"]);
 
 
+// Fetching API Data (Made By Clients through CURL)
+$router->get('/users', [APIController::class, 'index']);
+
 
 // POST Requests
 
 // Insert new user data
 $router->post("/api/users", [UsersController::class, 'insert']);
+
 
 
 // PUT Requests
