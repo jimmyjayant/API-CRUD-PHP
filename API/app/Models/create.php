@@ -16,10 +16,10 @@ else
     $data = json_decode($data, true);
 
     // Connect to the myapidb database 
-    require_once("db.php");
+    require_once("../app/Database/db.php");
 
     // function sanitize_input()
-    require_once("filter.php");
+    require_once("../app/Helpers/sanitize.php");
 
     // Sanitize the user input
     $fullname = sanitize_input($data['fullname']);

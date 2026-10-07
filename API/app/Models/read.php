@@ -1,10 +1,10 @@
 <?php
-require_once("db.php");
+require_once("../app/Database/db.php");
 
 // Read api data from table apidatatable
 
 // SQL Query Template
-$sql = "SELECT * FROM apidatatable";
+$sql = "SELECT id, fullname, email FROM apidatatable";
 
 // Prepare the SQL query template
 $stmt = $conn->prepare($sql);
@@ -48,8 +48,10 @@ if($stmt)
                 <td data-id='ID'>{$data['id']}</td>
                 <td data-id='Full Name'>{$data['fullname']}</td>
                 <td data-id='Email'>{$data['email']}</td>
-                <td data-id='Edit'><img src='../API/images/edit.png' onclick='edit({$data['id']})' title='Edit Entry No. {$data['id']}'></td>
-                <td data-id='Delete'><img src='../API/images/delete.png' onclick='del({$data['id']})' title='Delete Entry No. {$data['id']}'></td>
+                <td data-id='Edit'><img src='images/edit.png' onclick='edit({$data['id']})' 
+                title='Edit Entry No. {$data['id']}'></td>
+                <td data-id='Delete'><img src='images/delete.png' onclick='del({$data['id']})' 
+                title='Delete Entry No. {$data['id']}'></td>
                 </tr>";
             }
             
@@ -62,7 +64,6 @@ if($stmt)
             $data = json_encode($data);
             header("Content-Type: application/json");
             echo $data;
-            exit();
         }
     }
 }

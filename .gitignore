@@ -1,1 +1,2 @@
-.env
+/CLIENT/.env
+/API/vendor/

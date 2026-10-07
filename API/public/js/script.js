@@ -17,13 +17,17 @@ function getapidata()
         }
     }
 
-    xmlhttp.open("GET", "api/users", true);
+    xmlhttp.open("GET", "/api/users", true);
     xmlhttp.send();
 
     document.querySelector("#readapidata + hr").style.display = "block";
 }
 
+
+
 document.addEventListener("DOMContentLoaded", getapidata);
+
+
 
 function showinsertdiv()
 {
@@ -31,6 +35,8 @@ function showinsertdiv()
     document.getElementById("insertForm").addEventListener("submit", insertNewData);
     document.querySelector("#insertapidata + hr").style.display = "block";
 }
+
+
 
 function insertNewData(event)
 {
@@ -67,10 +73,12 @@ function insertNewData(event)
         }
     }
 
-    xmlhttp.open("POST", "api/users", true);
+    xmlhttp.open("POST", "/api/users", true);
     xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.send(InsertFormData);
 }
+
+
 
 
 function edit(id)
@@ -78,7 +86,7 @@ function edit(id)
     let id_of_row = id;
     console.log(id_of_row);
     document.getElementById("editapidata").style.display = "block";
-    document.querySelector("#editapidata form input[type=hidden]").value = id_of_row;
+    document.querySelector("#editForm input[type=hidden]").value = id_of_row;
 
     document.querySelector("#editapidata + hr").style.display = "block";
 
@@ -110,7 +118,7 @@ function getRecordToEdit(id)
         }
     }
 
-    xmlhttp.open("GET", "../API/crud/record.php?id=" + id, true);
+    xmlhttp.open("GET", "/api/users/" + id, true);
     xmlhttp.send();
 }
 
@@ -133,6 +141,7 @@ function updateData(event)
 
     var xmlhttp = new XMLHttpRequest();
     var editStatusDiv = document.getElementById("edit_status");
+    var id = document.querySelector("#editForm input[type=hidden]").value;
 
     xmlhttp.onload = function() {
         var data = JSON.parse(this.responseText);
@@ -151,7 +160,7 @@ function updateData(event)
         }
     }
 
-    xmlhttp.open("PUT", "../API/crud/update.php", true);
+    xmlhttp.open("PUT", "/api/users/" + id, true);
     xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.send(EditFormData);
 }
@@ -165,7 +174,7 @@ function del(id)
     console.log(id_of_row);
     document.getElementById("deleteapidata").style.display = "block";
     document.getElementById("recordno").innerHTML = id_of_row;
-    document.querySelector("#deleteapidata form input[type=hidden]").value = id_of_row;
+    document.querySelector("#deleteForm input[type=hidden]").value = id_of_row;
 
     document.getElementById("deleteForm").addEventListener("submit", deleteData);
 }
@@ -178,11 +187,12 @@ function deleteData(event)
     event.preventDefault();
 
     var DeleteForm = document.getElementById("deleteForm");
-    var deleteid = document.getElementById("deleteid").value;
+    // var deleteid = document.getElementById("deleteid").value;
 
 
     var xmlhttp = new XMLHttpRequest();
     var deleteStatusDiv = document.getElementById("delete_status");
+    var id = document.querySelector("#deleteForm input[type=hidden]").value
 
     xmlhttp.onload = function() {
         var data = JSON.parse(this.responseText);
@@ -201,9 +211,9 @@ function deleteData(event)
         }
     }
 
-    xmlhttp.open("DELETE", "../API/crud/delete.php", true);
+    xmlhttp.open("DELETE", "/api/users/" + id, true);
     xmlhttp.setRequestHeader("Content-Type", "application/json");
-    xmlhttp.send(JSON.stringify({deleteid: deleteid}));
+    xmlhttp.send();
 }
 
 

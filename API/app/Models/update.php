@@ -11,16 +11,18 @@ if($_SERVER['REQUEST_METHOD'] !== 'PUT')
 else
 {
     // Connect to the myapidb database 
-    require_once("db.php");
+    require_once("../app/Database/db.php");
 
-    require_once("filter.php");
+    require_once("../app/Helpers/sanitize.php");
 
     // Decode the json data
     $data = file_get_contents('php://input');
 
     $data = json_decode($data, true);
 
-    $idvalue = sanitize_input($data['idvalue']);
+    // $idvalue = sanitize_input($data['idvalue']);
+    $idvalue = sanitize_input($userID);
+
     $fullname = sanitize_input($data['newfullname']);
     $email = sanitize_input($data['newemail']);
 
@@ -42,7 +44,7 @@ else
         if($result)
         {
             $data['status'] = 'success';
-            $data['data'] = 'Data Updated Successfully.';
+            $data['data'] = 'Data Updated Successfully. Please refresh the webpage.';
             $data = json_encode($data);
             header("Content-Type: application/json");
             echo $data;

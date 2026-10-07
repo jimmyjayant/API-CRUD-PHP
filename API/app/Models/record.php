@@ -1,5 +1,5 @@
 <?php
-require_once("db.php");
+require_once("../app/Database/db.php");
 
 // Read api data from table apidatatable
 
@@ -16,7 +16,9 @@ if($stmt)
     $stmt->bind_param("i", $id);
 
     // Provide values to variables
-    $id = $_GET['id'];
+    // $id = $_GET['id'];
+    $id = $userID;
+
 
     // Execute the prepared statement
     $result = $stmt->execute();

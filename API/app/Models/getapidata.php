@@ -12,7 +12,7 @@ else
     else
     {      
         // Connect to the mysql database 'myapidb'
-        require_once("db.php");
+        require_once("../app/Database/db.php");
 
         // SQL Query Template
         $sql = "SELECT * FROM token WHERE token_key=?";

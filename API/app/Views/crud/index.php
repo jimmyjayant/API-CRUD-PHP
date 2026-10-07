@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Jimmy Jayant">
         <title>API CRUD PHP</title>
-        <link rel="stylesheet" href="public/css/style.css">
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <div class="header">
@@ -88,13 +88,13 @@
                 </form>
             </div>
 
-            <script src="public/js/script.js"></script>
+            <script src="js/script.js"></script>
         </div>
 
         <footer>
             Copyright &copy; 2026 Jimmy Jayant
             <br>
-            <img src="public/images/India.png">भारत में निर्मित
+            <img src="images/India.png">भारत में निर्मित
         </footer>
     </body>
 </html>

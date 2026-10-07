@@ -11,14 +11,16 @@ if($_SERVER['REQUEST_METHOD'] !== "DELETE")
 else
 {
     // Connect to the myapidb database 
-    require_once("db.php");
+    require_once("../app/Database/db.php");
 
-    require_once("filter.php");
+    require_once("../app/Helpers/sanitize.php");
 
     // $deleteid = sanitize_input($_DELETE['deleteid']);
-    $deleteid = file_get_contents('php://input');
-    $deleteid = json_decode($deleteid, true);
-    $id = $deleteid['deleteid'];
+    // $deleteid = file_get_contents('php://input');
+    // $deleteid = json_decode($deleteid, true);
+    // $id = $deleteid['deleteid'];
+
+    $id = sanitize_input($userID);
     
     // SQL Query Template
     $sql = "DELETE FROM apidatatable WHERE id=?";
@@ -38,7 +40,7 @@ else
         if($result)
         {
             $data['status'] = 'success';
-            $data['data'] = 'Data Deleted Successfully.';
+            $data['data'] = 'Data Deleted Successfully. Please refresh the webpage.';
             $data = json_encode($data);
             header("Content-Type: application/json");
             echo $data;
