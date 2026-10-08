@@ -11,9 +11,9 @@ if($_SERVER['REQUEST_METHOD'] !== 'PUT')
 else
 {
     // Connect to the myapidb database 
-    require_once("../app/Database/db.php");
+    require_once("../app/Database/DB.php");
 
-    require_once("../app/Helpers/sanitize.php");
+    require_once("../app/Helpers/Sanitize.php");
 
     // Decode the json data
     $data = file_get_contents('php://input');

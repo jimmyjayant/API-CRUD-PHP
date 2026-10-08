@@ -1,5 +1,5 @@
 <?php
-require_once("../app/Database/db.php");
+require_once("../app/Database/DB.php");
 
 // Read api data from table apidatatable
 
