@@ -82,33 +82,30 @@ $router->delete("/api/users/{id:number}", [UserController::class, 'delete']);
 
 
 
-try
-{
-    // Match routes to request
-    $response = $router->dispatch($request);
-}
-catch(NotFoundException $e)
-{
-    // 404 Error Page
-    $response = (new ErrorController())->index();
-}
-
-
-// Check if the route exists for a particular request without executing the respective controller
-// $result = $router->match($request);
-
-// if(!$result->isFound())
+// try
 // {
-    // echo "found";
-    // $route = $result->getRoute();
-    // echo "<pre>";
-    // var_dump($route);
-    // echo "</pre>";
-    
+//     // Match routes to request
+//     $response = $router->dispatch($request);
+// }
+// catch(NotFoundException $e)
+// {
+//     // 404 Error Page
+//     $response = (new ErrorController())->index();
 // }
 
 
+// Check if the route exists for a particular request without executing the respective controller
+$result = $router->match($request);
 
+if(!$result->isFound())
+{
+    // $route = $result->getRoute();
+    $response = (new ErrorController())->index();    
+}
+else
+{
+    $response = $router->dispatch($request);
+}
 
 
 // Emitting or echoing response
