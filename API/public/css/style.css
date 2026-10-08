@@ -76,6 +76,9 @@ body {
     border:2px solid black;
     width:100%;
     border-collapse:collapse;
+    max-width:800px;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 #readapidata table tr {

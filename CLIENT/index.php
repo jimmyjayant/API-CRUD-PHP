@@ -1,5 +1,5 @@
 <?php
-require_once(".env");
+$url = "http://api.com/users";
 
 $ch = curl_init();
 $data = ['key' => 'asdfghjklzxcvbnm'];
