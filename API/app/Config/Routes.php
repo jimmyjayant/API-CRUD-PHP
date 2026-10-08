@@ -14,6 +14,8 @@ require_once "../vendor/autoload.php";
 use GuzzleHttp\Psr7\ServerRequest;
 use GuzzleHttp\Psr7\Response;
 use League\Route\Router;
+use League\Route\MatchStatus;
+use League\Route\Http\Exception\NotFoundException;
 use HttpSoft\Emitter\SapiEmitter;
 
 
@@ -24,7 +26,7 @@ use App\Controllers\HomeController;
 use App\Controllers\UsersController;
 use App\Controllers\UserController;
 use App\Controllers\APIController;
-
+use App\Controllers\ErrorController;
 
 
 
@@ -79,24 +81,35 @@ $router->put("/api/users/{id:number}", [UserController::class, 'update']);
 $router->delete("/api/users/{id:number}", [UserController::class, 'delete']);
 
 
-// 404 Error Page
 
+try
+{
+    // Match routes to request
+    $response = $router->dispatch($request);
+}
+catch(NotFoundException $e)
+{
+    // 404 Error Page
+    $response = (new ErrorController())->index();
+}
 
-// Match routes to request
-$response = $router->dispatch($request);
 
 // Check if the route exists for a particular request without executing the respective controller
 // $result = $router->match($request);
 
-// if($result->isFound())
+// if(!$result->isFound())
 // {
-//     // echo "found";
-//     $route = $result->getRoute();
+    // echo "found";
+    // $route = $result->getRoute();
+    // echo "<pre>";
+    // var_dump($route);
+    // echo "</pre>";
+    
 // }
-// else
-// {
-//     echo "not found";
-// }
+
+
+
+
 
 // Emitting or echoing response
 $emitter = new SapiEmitter;

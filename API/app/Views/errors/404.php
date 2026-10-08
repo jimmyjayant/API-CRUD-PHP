@@ -6,11 +6,12 @@
         <meta name="author" content="Jimmy Jayant">
         <title>Page Not Found</title>
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/404.css">
     </head>
     <body>
         <div class="header">
             <div class="heading">
-                404 Page Not Found
+                API CRUD PHP
             </div>
         </div>
 
